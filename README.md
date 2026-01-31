@@ -1,4 +1,28 @@
-# Emly_Python_Project
+# Emly_Python_Project:
+
+## 📁 Project Folder Structure
+
+```
+EMLY_PYTHON_PROJECT/
+│
+├── Contributors/
+│   ├── Hamaad_Code.py
+│   ├── Mubashir_Code.py
+│   └── Shezan_Code.py
+│
+├── Docs/
+│   └── Mini_Project_Spec_Hangman_(Single_Player).pdf
+│
+├── README/
+│   ├── Data_Structure.md
+│   ├── Program_DryRun.md
+│   ├── Project_Structure_Info.md
+│   └── Role_based_Structure.md
+│
+├── Main.py
+│
+└── README.md
+```
 
 ## Algorithm: Hangman (Single-Player CLI Game)
 

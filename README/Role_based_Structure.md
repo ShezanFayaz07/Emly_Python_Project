@@ -1,6 +1,6 @@
 ## 🧠 Data Structures Usage (Person-wise Breakdown)
 
-### 👤 Person 1 – Game Data & Core Logic
+### 👤 Person 1 (Mubashir) – Game Data & Core Logic
 
 | Data Structure | Used In | Used For | How It Is Used |
 |---------------|--------|----------|----------------|
@@ -13,7 +13,7 @@
 
 ---
 
-### 👤 Person 2 – Input & Guess Handling
+### 👤 Person 2 (Shezan) – Input & Guess Handling
 
 | Data Structure | Used In | Used For | How It Is Used |
 |---------------|--------|----------|----------------|
@@ -26,7 +26,7 @@
 
 ---
 
-### 👤 Person 3 – Display & Game Loop
+### 👤 Person 3 (Hamaad) – Display & Game Loop
 
 | Data Structure | Used In | Used For | How It Is Used |
 |---------------|--------|----------|----------------|

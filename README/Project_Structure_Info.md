@@ -121,7 +121,7 @@
 
 <hr><hr><hr>
 
-# 👤 Person 1 – Game Data & Core Logic:
+# 👤 Person 1 (Mubashir) – Game Data & Core Logic:
 <br><br>
 
 ### Scope: Things that decide what the game is.
@@ -162,7 +162,7 @@
 
 <hr><hr><hr>
 
-# 👤 Person 2 – Input & Guess Handling:
+# 👤 Person 2 (Shezan) – Input & Guess Handling:
 <br><br>
 
 ### Scope: Dealing with messy humans typing stuff.
@@ -204,7 +204,7 @@
 
 <hr><hr><hr>
 
-# 👤 Person 3 – Display & Game Loop
+# 👤 Person 3 (Hamaad) – Display & Game Loop
 <br><br>
 
 ### Scope: What the user sees + flow.
