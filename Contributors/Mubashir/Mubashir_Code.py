@@ -5,7 +5,7 @@ words = ["apple", "banana", "grapes", "orange", "mango"]
 
 def getRandomWord():
     word = random.choice(words)
-    # print("Random Word Selected:", word)   # Testing output
+    # print("Random Word Selected:", word)   
     return word
 
 

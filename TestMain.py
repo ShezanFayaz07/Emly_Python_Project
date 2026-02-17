@@ -1,41 +1,44 @@
 import random
 
-# temp data:
-
-guessed_letters = ['a', 'p', 'l', 'e']
-words = ["apple", "banana", "grapes", "orange", "mango"]
-
-
-def getUserGuess():
+def getUserGuess(guessed_letters, Wrong_letters):
     guess = input("Enter your guess: ").strip().lower()
     
     if validateGuess(guess):
         print("user guess is valid")
         
-        if isRepeatedGuess(guess, guessed_letters):
+        if isRepeatedGuess(guess, guessed_letters, Wrong_letters):
             print("user guess is repeated")
-            return False
+            return guess
         else:
             print("user guess is not repeated")
-            return True
+            return guess
     else:
-        print("user guess is invalid")
-        return False
-        
+        print("user guess is invalid! Try again")
+        return guess
     
 
+        
+def initializeGameState(selected_word, attempts_left, guessed_letters, WordsList):
+    
+    selected_word = getRandomWord(WordsList)
+    attempts_left = 5
+    guessed_letters = set()
 
-def validateGuess(guess):
-    if len(guess) != 1 or not guess.isalpha():
-        return False
-    return True
+    print(f"Game Initialization Done:\nselected_word = ✅\nattempts_left = {attempts_left}\nguessed_letters = ✅")
 
-def isRepeatedGuess(guess, guessed_letters):
-    for letter in guessed_letters:
-        if guess == letter:
-            return True
-    return False
+    return selected_word, guessed_letters, attempts_left
+    
 
+def displayWordProgress(word, guessed_letters, attempts_left):
+    progress = ""
+    for letter in word:
+        if letter in guessed_letters:
+            progress += letter + " "
+        else:
+            progress += "_ "
+    print(f"{progress.strip()}  |-=-=-> Attempts Left: {attempts_left}")
+    
+    
 def processGuess(guess, secret_word, guessed_letters, wrong_letters, attempts_left):
     for letter in secret_word:
         if guess == letter:
@@ -44,25 +47,42 @@ def processGuess(guess, secret_word, guessed_letters, wrong_letters, attempts_le
             return guessed_letters, wrong_letters, attempts_left
     wrong_letters.add(guess)
     attempts_left -= 1
-    print("Wrong guess!")
+    # print("Wrong guess!")
     return guessed_letters, wrong_letters, attempts_left
 
 
 
+def validateGuess(guess):
+    if len(guess) != 1 or not guess.isalpha():
+        return False
+    return True
 
+def isRepeatedGuess(guess, guessed_letters, Wrong_letters):
+    for letter in guessed_letters.union(Wrong_letters):
+        if guess == letter:
+            return True
+    return False
 
-
-def getRandomWord():
-    word = random.choice(words)
+def getRandomWord(Words_List):
+    word = random.choice(Words_List)
+    # print("Random Word Done", word);
     return word
 
+#--------------------------------------------------------------
+#--------------------------------------------------------------
+#----------ABOVE IS CHECKED AND WORKING------------------------
+#--------------------------------------------------------------
+#--------------------------------------------------------------
 
-def initializeGameState():
-    selected_word = getRandomWord()
-    attempts_left = 5
-    guessed_letters = []
 
-    return selected_word, attempts_left, guessed_letters
+
+
+
+
+
+
+
+
 
 
 def checkWinCondition(guessed_letters, selected_word):
@@ -78,68 +98,19 @@ def checkLoseCondition(attempts_left):
     return False
 
 
+def showFinalResult(is_win, word):
+    """
+    Displays final game result.
+    """
+    if is_win:
+        print(f"🎉 Congratulations! You guessed the word: {word}")
+    else:
+        print(f"❌ Game Over! The word was: {word}")
 
-words = ["apple", "banana", "grapes", "orange", "mango"]
-
-
-
-
-
-if __name__ == "__main__":
-
-   
-    #check functions:
-    
-    
-    
-    # checkLoseCondition() ---> Working ✅
-    
-    # _______________________________________________________________________________
-    # | for i in range(5, -1, -1):                                                  |
-    # |     print(f"Player Lose: {checkLoseCondition(i)} | Attempts Left: {i}");    |
-    # |_____________________________________________________________________________|
-        
 
     
-    # getUserGuess() --> Working ✅
-    # validateGuess() --> Working ✅
-    # isRepeatedGuess() --> Working ✅
     
-    # _______________________________
-    # | while True:                 |    
-    # |     temp = getUserGuess()   |
-    # |                             |
-    # |     if temp:                |
-    # |         break               |
-    # |_____________________________|
-    
-    
-    # initializeGameState() --> Working ✅
-    
-    # ___________________________________
-    # |                                 |
-    # |  print(initializeGameState());  |
-    # |_________________________________|
-    
-    
-    # getRandomWord() --> Working ✅
-    
-    # _______________________________
-    # |                             |
-    # | print(getRandomWord());     |
-    # |_____________________________|
-    
-    # checkWinCondition() --> Working ✅
-    
-    # _______________________________________________________________
-    # |                                                             |
-    # | print(checkWinCondition(['a', 'p', 'l', 'e'], "apple"));    |
-    # |_____________________________________________________________|
-    
-    
-    # processGuess() --> Pending review
-    
-    print(processGuess('a', "apple", set(), set(), 5));
+
 
     
     
