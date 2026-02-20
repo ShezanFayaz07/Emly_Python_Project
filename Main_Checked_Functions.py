@@ -13,13 +13,13 @@ def getUserGuess(guessed_letters, Wrong_letters):
     
     if validateGuess(guess):        
         if isRepeatedGuess(guess, guessed_letters, Wrong_letters):
-            print(f"{Red}⚠️ User guess is repeated{White}")
-            return guess
+            print(f"{Red}⚠️  User guess is repeated{White}")
+            return False
         else:
             return guess
     else:
         print(f"{Red}user guess is invalid! Try again{White}")
-        return guess
+        return False
 #-----------------------------------------------------------------------------------------------------------------------
 #///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #-----------------------------------------------------------------------------------------------------------------------        
@@ -52,9 +52,10 @@ def processGuess(guess, secret_word, guessed_letters, wrong_letters, attempts_le
             guessed_letters.add(guess)
             print(f"{Green}Correct Guess!{White}\n")
             return guessed_letters, wrong_letters, attempts_left
-    wrong_letters.add(guess)
+    if guess != False:
+        wrong_letters.add(guess)
+        print(f"{Red}⚠️  Wrong Guess!{White}\n")
     attempts_left -= 1
-    print(f"{Red}⚠️ Wrong Guess!{White}\n")
     return guessed_letters, wrong_letters, attempts_left
 #-----------------------------------------------------------------------------------------------------------------------
 #///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

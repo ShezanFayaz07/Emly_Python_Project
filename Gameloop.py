@@ -24,6 +24,7 @@ def gameLoop():
     
     while not checkLoseCondition(attempts_left) and not checkWinCondition(guessed_letters, selected_word):
         User_Guess = getUserGuess(guessed_letters, Wrong_letters)
+        
         guessed_letters, Wrong_letters, attempts_left = processGuess(User_Guess, selected_word, guessed_letters, Wrong_letters, attempts_left)
         displayWordProgress(selected_word, guessed_letters, attempts_left)
         
