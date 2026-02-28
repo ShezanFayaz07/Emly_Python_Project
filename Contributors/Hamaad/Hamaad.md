@@ -1,154 +1,184 @@
-# Hamaad – Contributor (Person 3)
-## Display Logic & Game Loop – Hangman CLI Game
+🎮 Hangman Game – Display & Game Loop Module (Person 3)
+📌 Overview
 
----
+This module is my contribution to the team-based Python Hangman game project.
+My responsibility (as Person 3) was to implement the game loop, word display logic, and final result handling, while integrating with shared core functions written by teammates.
 
-## 👤 Contributor Information
+This file handles:
 
-- **Name:** Hamaad  
-- **Role:** Person 3 (Display & Game Flow Handler)  
-- **Module:** Hangman Command-Line Interface (CLI) Game  
-- **Project Type:** Team-based Python mini project  
+Displaying the word progress (_ _ a _ _)
 
----
+Tracking remaining attempts
 
-## 🎯 Role & Responsibility
+Running the main game loop
 
-My primary responsibility in this project was to **handle the display logic and control the overall game flow** of the Hangman CLI game.
+Showing win/lose results
 
-This includes:
-- Showing the current progress of the guessed word
-- Displaying remaining attempts
-- Managing the game loop
-- Displaying the final game result (win / lose)
+Coordinating user guesses with the core game logic
 
-I focused on making the game **clear, readable, and user-friendly** when played in the terminal.
+The core logic functions are imported from Main_Checked_Functions.py, which is maintained by the team.
 
----
+🧠 Features Implemented
+✅ 1. Word Progress Display
 
-## 🧠 Functions Implemented
+Shows guessed letters and hides unknown ones using _.
 
-### 1️⃣ `displayWordProgress(word, guessed_letters)`
+Example output:
 
-**Purpose:**  
-Displays the current state of the word by:
-- Revealing letters that have already been guessed
-- Hiding unguessed letters using underscores (`_`)
+_ _ a _ _ | ===> Attempts Left: 5
 
-**Example Output:**
+Implemented in:
 
-Word: h _ n g m a n
+displayWordProgress(word, guessed_letters, attempts_left)
+✅ 2. Game Loop Controller
 
+Controls the flow of the game:
 
-This helps the player visually track their progress during the game.
+Initializes the game state
 
----
+Repeatedly asks the user for input
 
-### 2️⃣ `displayGameStatus(attempts_left)`
+Processes guesses
 
-**Purpose:**  
-Shows how many attempts the player has remaining.
+Updates attempts and progress
 
-**Example Output:**
+Stops when the user wins or loses
 
-Attempts remaining: 4
+Implemented in:
 
+gameLoop()
+✅ 3. Win / Lose Condition Check
 
-This function improves clarity and prevents confusion during gameplay.
+Checks if:
 
----
+The user has guessed all letters (Win)
 
-### 3️⃣ `gameLoop(word)`
+The user has no attempts left (Lose)
 
-**Purpose:**  
-Controls the entire game flow:
-- Takes user input
-- Calls display functions
-- Tracks guessed letters
-- Reduces attempts on wrong guesses
-- Determines win or loss conditions
+Implemented in:
 
-This function acts as the **central controller** of the game logic.
+checkWinCondition(guessed_letters, selected_word)
+checkLoseCondition(attempts_left)
+✅ 4. Final Result Display
 
----
+Displays colored win/lose messages using ANSI color codes:
 
-### 4️⃣ `showFinalResult(is_win, word)`
+🎉 Win → Green
 
-**Purpose:**  
-Displays the final message when the game ends.
+❌ Lose → Red
 
-**Possible Outputs:**
-🎉 Congratulations! You guessed the word correctly.
-or
-❌ Game Over! The correct word was: hangman
+Implemented in:
 
----
+showFinalResult(is_win, word)
+📁 File Structure
+Emly_Python_Project/
+│
+├── Main_Checked_Functions.py      # Core logic (teammates)
+│
+├── Contributors/
+│   └── Hamaad/
+│       ├── Hamaad_Code.py         # My implementation (this file)
+│       └── Hamaad.md              # This README
+🔗 Dependencies (Team Integration)
 
-## 🔧 Variables Used
+This file depends on functions defined in:
 
-| Variable Name     | Description |
-|------------------|------------|
-| `word`            | The word to be guessed |
-| `guessed_letters`| List of letters guessed by the player |
-| `attempts_left`  | Number of attempts remaining |
+from Main_Checked_Functions import *
 
----
+Which provides:
 
-## 🧪 How to Test My Code
+initializeGameState()
 
-### ▶️ Run Individually (For Testing)
+getUserGuess()
+
+processGuess()
+
+Color constants like Green, Red, White
+
+This design keeps:
+
+Core logic → centralized
+
+UI & game flow → modular and maintainable
+
+▶️ How to Run
 
 From the project root directory:
 
 python Contributors/Hamaad/Hamaad_Code.py
 
-This allows isolated testing of display logic and game loop.
+Make sure:
 
-▶️ Run Through Main Game
+Main_Checked_Functions.py exists in the project root
 
-Run the main entry file:
+Python is installed
 
-python Main.py
+You are running the command from the root folder of the repo
 
-Ensure Hamaad_Code.py is properly imported inside Main.py.
+🧪 Sample Game Flow
+_ _ _ _ _ | ===> Attempts Left: 5
+Enter your guess: a
+{'a'} set() 5
+_ a _ _ _ | ===> Attempts Left: 5
+Enter your guess: z
+{'a'} {'z'} 4
+_ a _ _ _ | ===> Attempts Left: 4
+...
+🛠 Tech Stack
 
-⚠️ Challenges Faced
+Language: Python 3
 
-Understanding role-based function separation in a team project
+Concepts Used:
 
-Avoiding overlap with logic implemented by other contributors
+Functions
 
-Maintaining clean terminal output
+Loops
 
-Ensuring compatibility with the main game file
+Sets
 
-📚 Learning Outcomes
+Modular programming
 
-Through this contribution, I learned:
+Team-based code integration
 
-How to structure Python functions for CLI-based games
+Tools: Git, GitHub, VS Code
 
-Managing game loops effectively
+🤝 Contribution
 
-Working collaboratively using Git & GitHub
+Contributor: Hamaad (Person 3)
+Responsibility:
 
-Writing clean, readable terminal output
+Game loop
 
-Proper folder structure and modular coding
+Display logic
 
-✅ Conclusion
+Win/Lose conditions
 
-My contribution ensures that the Hangman game:
+Output formatting
 
-Runs smoothly
+Integration with core logic module
 
-Is easy to understand for players
+📈 Future Improvements
 
-Displays meaningful game feedback
+Add difficulty levels (easy/medium/hard)
 
-Ends with clear win or loss messages
+Add hint system
 
-This module improves the user experience of the Hangman CLI game.
+Improve UI with ASCII art
 
-Contributor: Hamaad
-Role: Display Logic & Game Loop Handler
+Add multiplayer mode
+
+Add replay option
+
+⭐ Resume Note
+
+This module demonstrates:
+
+Collaborative development
+
+Clean separation of concerns
+
+Ability to integrate code written by teammates
+
+Handling merge conflicts and Git workflows
+
+Writing modular and testable Python code
