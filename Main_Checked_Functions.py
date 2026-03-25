@@ -84,7 +84,7 @@ def displayWordProgress(word, guessed_letters, attempts_left):
             progress += " " + letter + " "
         else:
             progress += " x "
-    print(f"\033[1;30;47m{progress.strip()}  {Red}|-=-=-> Attempts Left: {attempts_left}\033[0m\n")
+    print(f"\033[1;30;47m{progress.strip()}  {Blue}|-=-=-> Attempts Left: {attempts_left}----\033[0m\n")
 #-----------------------------------------------------------------------------------------------------------------------
 #///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #-----------------------------------------------------------------------------------------------------------------------    
@@ -92,10 +92,10 @@ def processGuess(guess, secret_word, guessed_letters, wrong_letters, attempts_le
     for letter in secret_word:
         if guess == letter:
             guessed_letters.add(guess)
-            print(f"{Green}Correct Guess!{White}\n")
+            print(f"\n{Green}Correct Guess!{White}")
             return guessed_letters, wrong_letters, attempts_left
     wrong_letters.add(guess)
-    print(f"{Red}⚠️  Wrong Guess!{White}\n")
+    print(f"\n{Red}⚠️  Wrong Guess!{White}")
     attempts_left -= 1
     return guessed_letters, wrong_letters, attempts_left
 #-----------------------------------------------------------------------------------------------------------------------
