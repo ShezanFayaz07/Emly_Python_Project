@@ -5,7 +5,11 @@ from CL_Colors import *
 def getUserGuess(guessed_letters, Wrong_letters):
         
     while True:
-        guess = input(f"{Magenta}Enter your guess: {White}").strip().lower()
+        # guess = input(f"{Magenta}Enter your guess: {White}").strip().lower()
+        guess = input(f"{Magenta}Enter your guess (or type 'hint'): {White}").strip().lower()
+
+        if guess == "hint":
+            return "hint"
     
         #⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
         #Dev use only:
@@ -25,19 +29,55 @@ def getUserGuess(guessed_letters, Wrong_letters):
 #-----------------------------------------------------------------------------------------------------------------------
 #///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #-----------------------------------------------------------------------------------------------------------------------        
-def initializeGameState(selected_word, attempts_left, guessed_letters, WordsList):
+def chooseCategory(Wordslist):
+    print("Word Categories:\n")
+    print("Fruits , Places , Animals , Tech \n")
+    while True:
+        choice = input("Enter the Category: ").strip().lower()
+        if choice in Wordslist:
+            return Wordslist[choice]
+        else:
+            print("Invalid Category , Please try again")
+
+#-----------------------------------------------------------------------------------------------------------------------
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#-----------------------------------------------------------------------------------------------------------------------
+
+def chooseDifficulty(attempts_left):
+    print("Difficulty Level:\n")
+    print("Easy -> 8 attempts \n")
+    print("Medium -> 6 attempts \n")
+    print("Hard -> 4 attempts \n")
+    while True:
+        choice = input("Enter Difficulty :").strip().lower()
+        if choice == "easy":
+            attempts_left = 8
+            return attempts_left
+        elif choice == "medium":
+            attempts_left = 6
+            return attempts_left
+        elif choice == "hard":
+            attempts_left = 4
+            return attempts_left
+        else:
+            print("Invalid Diificulty Level , Please try again")
+
+#-----------------------------------------------------------------------------------------------------------------------
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#-----------------------------------------------------------------------------------------------------------------------
+def initializeGameState(selected_word, guessed_letters, WordsList):
     
     selected_word = getRandomWord(WordsList)
-    attempts_left = 5
     guessed_letters = set()
 
     print(f"{Yellow}Game Initialization Done, Random Word Is Selected\n")
 
-    return selected_word, guessed_letters, attempts_left
+    return selected_word, guessed_letters
 #-----------------------------------------------------------------------------------------------------------------------
 #///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #-----------------------------------------------------------------------------------------------------------------------
 def displayWordProgress(word, guessed_letters, attempts_left):
+    drawHangman(attempts_left)
     progress = ""
     for letter in word:
         if letter in guessed_letters:
@@ -90,6 +130,98 @@ def checkLoseCondition(attempts_left):
 #-----------------------------------------------------------------------------------------------------------------------
 #///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #-----------------------------------------------------------------------------------------------------------------------
+
+def giveHint(secret_word, guessed_letters):
+    remaining_letters = []
+
+    for letter in secret_word:
+        if letter not in guessed_letters:
+            remaining_letters.append(letter)
+
+    if remaining_letters:
+        hint_letter = random.choice(remaining_letters)
+        guessed_letters.add(hint_letter)
+
+        print(f"{Cyan}💡 Hint used! Revealed letter: {hint_letter}{White}")
+
+    return guessed_letters
+#-----------------------------------------------------------------------------------------------------------------------
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#-----------------------------------------------------------------------------------------------------------------------
+def drawHangman(attempts_left):
+
+    stages = [
+"""
+   ------
+   |    |
+   |    O
+   |   /|\\
+   |   / \\
+   |
+=========
+""",
+"""
+   ------
+   |    |
+   |    O
+   |   /|\\
+   |   /
+   |
+=========
+""",
+"""
+   ------
+   |    |
+   |    O
+   |   /|\\
+   |
+   |
+=========
+""",
+"""
+   ------
+   |    |
+   |    O
+   |   /|
+   |
+   |
+=========
+""",
+"""
+   ------
+   |    |
+   |    O
+   |    |
+   |
+   |
+=========
+""",
+"""
+   ------
+   |    |
+   |    O
+   |
+   |
+   |
+=========
+""",
+"""
+   ------
+   |    |
+   |
+   |
+   |
+   |
+=========
+"""
+]
+
+    index = min(attempts_left, len(stages)-1)
+    print(stages[index])
+
+#-----------------------------------------------------------------------------------------------------------------------
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#-----------------------------------------------------------------------------------------------------------------------
 def checkWinCondition(guessed_letters, selected_word):
     for letter in selected_word:
         if letter not in guessed_letters:
@@ -98,9 +230,12 @@ def checkWinCondition(guessed_letters, selected_word):
 #-----------------------------------------------------------------------------------------------------------------------
 #///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #-----------------------------------------------------------------------------------------------------------------------
-def showFinalResult(is_win, word):
+def showFinalResult(is_win, word , attempts_left):
     if is_win:
+        word_length = len(word)
+        score = attempts_left * word_length
         print(f"{Green}🎉 Congratulations! You guessed the word: {word}{White}")
+        print(f"{Cyan}Your Score: {score}{White}")
     else:
         print(f"{Red}❌ Game Over! The word was: {word}{White}")
 
