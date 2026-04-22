@@ -112,6 +112,8 @@ while running:
                     running = False
                 if guess != False:
                     guessed_letters, wrong_letters, attempts_left , message_processedGuess = processGuess(WIN, guess, selected_word, guessed_letters, wrong_letters, attempts_left)
+                else:
+                    message_processedGuess = ""
 
     if game_state == "menu":
         draw_menu()
