@@ -41,7 +41,7 @@ Guess the secret word one letter at a time.
 
 while(True):
     showWelcomeAndRules()
-    IsPlayerReady();
+    IsPlayerReady()
     
     #⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
     #Dev use only:
