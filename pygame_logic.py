@@ -1,6 +1,8 @@
 import pygame
 import random
 
+info = pygame.display.Info()
+WIDTH, HEIGHT = info.current_w, info.current_h
 
 font_big = pygame.font.SysFont('Arial', 80)
 font_medium = pygame.font.SysFont('Arial', 46)
@@ -25,14 +27,16 @@ font_small = pygame.font.SysFont('Arial', 34)
 
 
 
-def initializeGameState(selected_word, WordsList , attempts_left):
+def initializeGameState(selected_word, WordsList , attempts_left , wrong_letters , guessed_letters):
     
     selected_word = getRandomWord(WordsList)
     attempts_left = 6
+    guessed_letters = set()
+    wrong_letters = set()
 
     initialize_message = "Game Initialization Done, Random Word Is Selected"
 
-    return selected_word, attempts_left, initialize_message
+    return selected_word, attempts_left , guessed_letters, wrong_letters, initialize_message
 
 
 
@@ -53,11 +57,11 @@ def displayWordProgress(WIN, word, guessed_letters, attempts_left):
 
     progress = progress.strip()
     display_word = font_small.render(progress , True, (255, 255, 255))
-    WIN.blit(display_word, (1200//2 - display_word.get_width()//2, 500))
+    WIN.blit(display_word, (WIDTH//2 - display_word.get_width()//2, 600))
 
     attempts_left_str = str(attempts_left)
     attempts_text = font_small.render(attempts_left_str, True, (255, 255, 255))
-    WIN.blit(attempts_text, (1200//2 - attempts_text.get_width()//2, 550))
+    WIN.blit(attempts_text, (WIDTH//2 - attempts_text.get_width()//2, 660))
 
 
 
@@ -106,16 +110,16 @@ def processGuess(WIN , guess, secret_word, guessed_letters, wrong_letters, attem
 def displayResult(WIN, isWin, word):
     if isWin:
         message = f"Congratulations! You guessed the word: {word}"
-        win_message_text = font_small.render(message, True, (255, 255, 255))
-        WIN.blit(win_message_text, (1200//2 - win_message_text.get_width()//2, 300))
+        win_message_text = font_small.render(message, True, (0, 255, 0))
+        WIN.blit(win_message_text, (WIDTH//2 - win_message_text.get_width()//2, 360))
     else:
         message = f"Game Over! The word was: {word}"
         result_text = font_small.render(message, True, (255, 0, 0))
-        WIN.blit(result_text, (1200//2 - result_text.get_width()//2, 300))
+        WIN.blit(result_text, (WIDTH//2 - result_text.get_width()//2, 360))
 
     returnMessage = "Press Enter to Return to Menu or N to Exit"
     return_message_text = font_small.render(returnMessage, True, (255, 255, 255))
-    WIN.blit(return_message_text, (1200//2 - return_message_text.get_width()//2, 400))
+    WIN.blit(return_message_text, (WIDTH//2 - return_message_text.get_width()//2, 480))
 
 def checkWinCondition(guessed_letters, selected_word):
     for letter in selected_word:

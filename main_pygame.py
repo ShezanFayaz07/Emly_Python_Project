@@ -5,8 +5,12 @@ pygame.init()
 from pygame_logic import checkLoseCondition, displayWordProgress, getUserGuess, initializeGameState, processGuess, displayResult, checkWinCondition
 
 
+info = pygame.display.Info()
+WIDTH, HEIGHT = info.current_w, info.current_h
 
-WIN =  pygame.display.set_mode((1200, 720))
+WIN = pygame.display.set_mode((WIDTH, HEIGHT))
+
+# WIN =  pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 pygame.display.set_caption("Hangman Game")
 
 clock = pygame.time.Clock()
@@ -21,6 +25,7 @@ font_small = pygame.font.SysFont('Arial', 34)
 selected_word = ''
 attempts_left = 0
 guessed_letters = set()
+wrong_letters = set()
 
 WordsList = ["apple", "banana", "grapes", "orange", "mango"]
 
@@ -29,6 +34,8 @@ user_guess = ''
 initialize_message = ''
 validation_message = ''
 message_processedGuess = ''
+
+print(f"Window Size: {WIDTH}x{HEIGHT}")
 
 wrong_letters = set()
 
@@ -39,9 +46,9 @@ def draw_menu():
     welcome = font_medium.render("Welcome to the Game!", True, (255, 255, 255))
     prompt  = font_small.render("Press Y to Start or N to Quit", True, (180, 180, 180))
 
-    WIN.blit(title,   (1200//2 - title.get_width()//2,   200))  
-    WIN.blit(welcome, (1200//2 - welcome.get_width()//2, 300)) 
-    WIN.blit(prompt,  (1200//2 - prompt.get_width()//2,  380)) 
+    WIN.blit(title,   (WIDTH//2 - title.get_width()//2, 240))  
+    WIN.blit(welcome, (WIDTH//2 - welcome.get_width()//2, 360)) 
+    WIN.blit(prompt,  (WIDTH//2 - prompt.get_width()//2, 456)) 
 
 def draw_rules():
     WIN.fill((30,30,30))
@@ -57,10 +64,10 @@ def draw_rules():
         "6. You lose if attempts reach 0."
     ]
 
-    WIN.blit(title, (1200//2 - title.get_width()//2, 50))
+    WIN.blit(title, (WIDTH//2 - title.get_width()//2, 60))
     for i in rules:
         rule_text = font_small.render(i, True, (255, 255, 255))
-        WIN.blit(rule_text, (1200//2 - rule_text.get_width()//2, 150 + rules.index(i) * 50 ))
+        WIN.blit(rule_text, (WIDTH//2 - rule_text.get_width()//2, 180 + rules.index(i) * 60 ))
 
 
 
@@ -69,13 +76,13 @@ def draw_game():
     displayWordProgress(WIN, selected_word, guessed_letters, attempts_left)
 
     display_initialization_text = font_small.render(initialize_message, True, (255, 255, 255))
-    WIN.blit(display_initialization_text, (1200//2 - display_initialization_text.get_width()//2, 200))
+    WIN.blit(display_initialization_text, (WIDTH//2 - display_initialization_text.get_width()//2, 240))
 
     validation_text = font_small.render(validation_message, True, (255, 0, 0))
-    WIN.blit(validation_text, (1200//2 - validation_text.get_width()//2, 300))
+    WIN.blit(validation_text, (WIDTH//2 - validation_text.get_width()//2, 360))
 
     processedGuess_text = font_small.render(message_processedGuess, True, (0, 255, 0))
-    WIN.blit(processedGuess_text, (1200//2 - processedGuess_text.get_width()//2, 400))
+    WIN.blit(processedGuess_text, (WIDTH//2 - processedGuess_text.get_width()//2, 480))
 
 
 def draw_result():
@@ -105,7 +112,7 @@ while running:
         elif game_state == "rules":
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    selected_word, attempts_left, initialize_message = initializeGameState(selected_word, WordsList , attempts_left)
+                    selected_word, attempts_left, guessed_letters, wrong_letters, initialize_message = initializeGameState(selected_word, WordsList , attempts_left , wrong_letters , guessed_letters)
                     game_state = "game"
                 elif event.key == pygame.K_n:
                     running = False
