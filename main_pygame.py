@@ -2,7 +2,7 @@ import pygame
 pygame.init()
 
 
-from pygame_logic import displayWordProgress, getUserGuess, initializeGameState, processGuess
+from pygame_logic import checkLoseCondition, displayWordProgress, getUserGuess, initializeGameState, processGuess, displayResult, checkWinCondition
 
 
 
@@ -78,6 +78,14 @@ def draw_game():
     WIN.blit(processedGuess_text, (1200//2 - processedGuess_text.get_width()//2, 400))
 
 
+def draw_result():
+
+    WIN.fill((30, 30, 30))
+
+    displayResult(WIN, isWin, selected_word)
+
+
+
 running = True
 while running:
     clock.tick(60)
@@ -115,11 +123,27 @@ while running:
                 else:
                     message_processedGuess = ""
 
+                if checkWinCondition(guessed_letters, selected_word):
+                    isWin = True
+                    game_state = "result"
+                if checkLoseCondition(attempts_left):
+                    isWin = False
+                    game_state = "result"
+                
+        elif game_state == "result":
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    game_state = "menu"
+                elif event.key == pygame.K_n:
+                    running = False
+
     if game_state == "menu":
         draw_menu()
     elif game_state == "rules":
         draw_rules()
     if game_state == "game":
         draw_game()
+    if game_state == "result":
+        draw_result()
     pygame.display.update()
 pygame.quit()
