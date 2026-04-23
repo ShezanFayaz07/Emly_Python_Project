@@ -30,13 +30,6 @@ def initializeGameState(selected_word, WordsList , attempts_left):
     selected_word = getRandomWord(WordsList)
     attempts_left = 6
 
-    # print(f"{Yellow}Game Initialization Done, Random Word Is Selected\n")
-
-
-    # intialize_text = "Game Initialization Done, Random Word Is Selected"
-    # display_initialization_text = font_small.render(intialize_text, True, (255, 255, 255))
-    # WIN.blit(display_initialization_text, (1200//2 - display_initialization_text.get_width()//2, 400))
-
     initialize_message = "Game Initialization Done, Random Word Is Selected"
 
     return selected_word, attempts_left, initialize_message
@@ -65,6 +58,9 @@ def displayWordProgress(WIN, word, guessed_letters, attempts_left):
     attempts_left_str = str(attempts_left)
     attempts_text = font_small.render(attempts_left_str, True, (255, 255, 255))
     WIN.blit(attempts_text, (1200//2 - attempts_text.get_width()//2, 550))
+
+
+
 
 
 
@@ -106,3 +102,28 @@ def processGuess(WIN , guess, secret_word, guessed_letters, wrong_letters, attem
     attempts_left -= 1
     message_processedGuess = "Wrong Guess!"
     return guessed_letters, wrong_letters, attempts_left , message_processedGuess
+
+def displayResult(WIN, isWin, word):
+    if isWin:
+        message = f"Congratulations! You guessed the word: {word}"
+        win_message_text = font_small.render(message, True, (255, 255, 255))
+        WIN.blit(win_message_text, (1200//2 - win_message_text.get_width()//2, 300))
+    else:
+        message = f"Game Over! The word was: {word}"
+        result_text = font_small.render(message, True, (255, 0, 0))
+        WIN.blit(result_text, (1200//2 - result_text.get_width()//2, 300))
+
+    returnMessage = "Press Enter to Return to Menu or N to Exit"
+    return_message_text = font_small.render(returnMessage, True, (255, 255, 255))
+    WIN.blit(return_message_text, (1200//2 - return_message_text.get_width()//2, 400))
+
+def checkWinCondition(guessed_letters, selected_word):
+    for letter in selected_word:
+        if letter not in guessed_letters:
+            return False
+    return True
+
+def checkLoseCondition(attempts_left):
+    if attempts_left == 0:
+        return True
+    return False
